@@ -308,6 +308,15 @@ class SolarPosition{
         return radToDeg(Etime)*4.0;
     }
     
+    /**
+     
+     Function to calculate the difference between true solar time and mean solar time.
+     
+     - Parameter t: Number of Julian centuries since J2000.0.
+     - Returns: Equation of time in minutes of time.
+     
+     */
+    
     public func timenow(hour: Int, min: Int, sec: Int, zone: Int)->Double{
         let h = Double(hour)
         let m = Double(min/60)
@@ -316,6 +325,23 @@ class SolarPosition{
         let timenow = h + m + s + z
         return timenow
     }
+    
+    /**
+     
+     Function to calculate the Zenith at a given time, day and at a given location.
+     
+     - Parameter lat: Latitude.
+     - Parameter lat: Longitude.
+     - Parameter sec: Seconds.
+     - Parameter min: Minutes.
+     - Parameter z: Time zone code.
+     - Parameter month: Mnoth.
+     - Parameter year: Year.
+
+
+     - Returns: Zenith respect to the Sun.
+     
+     */
     
     public func calcZenith(_ lat: Double, long: Double, sec:Double, min: Double, hour: Double, z: Int, day: Int, month: Int, year: Int)->Double{
         
@@ -363,77 +389,77 @@ class SolarPosition{
         return zenith;
     }
 
-//    public func calcAzimuth(_ lat: Double, long: Double, sec:Double, min: Double, hour: Double, z: Int, day: Int, month: Int, year: Int)->Double{
-//    
-//        var azRad :Double
-//        var azimuth :Double
+    public func calcAzimuth(_ lat: Double, long: Double, sec:Double, min: Double, hour: Double, z: Int, day: Int, month: Int, year: Int)->Double{
+    
+        var azRad :Double
+        var azimuth :Double
+        
+        var zenith = calcZenith(lat, long: long, sec: sec, min: min, hour: hour, z: z, day: day, month: month, year: year)
+        
+        let azDenom = ( cos(degToRad(lat)) *
+            sin(degToRad(zenith)) );
+        if (abs(azDenom) > 0.001) {
+            azRad = ((sin(degToRad(lat)) * cos(degToRad(zenith)) ) - sin(degToRad(solarDec))) / azDenom;
+            if (abs(azRad) > 1.0) {
+                if (azRad < 0) {
+                    azRad = -1.0;
+                } else {
+                    azRad = 1.0;
+                }
+            }
+            
+            azimuth = 180.0 - radToDeg(acos(azRad));
+            
+            if (hourAngle > 0.0) {
+                azimuth = -azimuth;
+            }
+        } else {
+            if (lat > 0.0) {
+                azimuth = 180.0;
+            } else {
+                azimuth = 0.0;
+            }
+        }
+        if (azimuth < 0.0) {
+            azimuth += 360.0;
+        }
+        
+        //****************************
 //        
-//        var zenith = calcZenith(lat, long: long, sec: sec, min: min, hour: hour, z: z, day: day, month: month, year: year)
-//        
-//        let azDenom = ( cos(degToRad(lat)) *
-//            sin(degToRad(zenith)) );
-//        if (abs(azDenom) > 0.001) {
-//            azRad = ((sin(degToRad(lat)) * cos(degToRad(zenith)) ) - sin(degToRad(solarDec))) / azDenom;
-//            if (abs(azRad) > 1.0) {
-//                if (azRad < 0) {
-//                    azRad = -1.0;
-//                } else {
-//                    azRad = 1.0;
-//                }
-//            }
-//            
-//            azimuth = 180.0 - radToDeg(acos(azRad));
-//            
-//            if (hourAngle > 0.0) {
-//                azimuth = -azimuth;
-//            }
+//        var refractionCorrection:Double
+//        let exoatmElevation = 90.0 - zenith;
+//        if (exoatmElevation > 85.0) {
+//            refractionCorrection = 0.0;
 //        } else {
-//            if (lat > 0.0) {
-//                azimuth = 180.0;
+//            let te = tan (degToRad(exoatmElevation));
+//            if (exoatmElevation > 5.0) {
+//                refractionCorrection = 58.1 / te - 0.07 / (te*te*te) + 0.000086 / (te*te*te*te*te);
+//            } else if (exoatmElevation > -0.575) {
+//                refractionCorrection = 1735.0 + exoatmElevation *
+//                    (-518.2 + exoatmElevation * (103.4 +
+//                        exoatmElevation * (-12.79 +
+//                            exoatmElevation * 0.711) ) );
 //            } else {
-//                azimuth = 0.0;
+//                refractionCorrection = -20.774 / te;
 //            }
-//        }
-//        if (azimuth < 0.0) {
-//            azimuth += 360.0;
+//            refractionCorrection = refractionCorrection / 3600.0;
 //        }
 //        
-//        //****************************
-////        
-////        var refractionCorrection:Double
-////        let exoatmElevation = 90.0 - zenith;
-////        if (exoatmElevation > 85.0) {
-////            refractionCorrection = 0.0;
-////        } else {
-////            let te = tan (degToRad(exoatmElevation));
-////            if (exoatmElevation > 5.0) {
-////                refractionCorrection = 58.1 / te - 0.07 / (te*te*te) + 0.000086 / (te*te*te*te*te);
-////            } else if (exoatmElevation > -0.575) {
-////                refractionCorrection = 1735.0 + exoatmElevation *
-////                    (-518.2 + exoatmElevation * (103.4 +
-////                        exoatmElevation * (-12.79 +
-////                            exoatmElevation * 0.711) ) );
-////            } else {
-////                refractionCorrection = -20.774 / te;
-////            }
-////            refractionCorrection = refractionCorrection / 3600.0;
-////        }
-////        
-////        let solarZen = zenith - refractionCorrection;
-////        var elevation:Double
-////        
-////        if(solarZen < 108.0) { // astronomical twilight
-////            
-////            azimuth = (floor(100*azimuth))/100;
-////            elevation = (floor(100*(90.0 - solarZen)))/100;
-////            
-////        } else {  // do not report az & el after astro twilight
-////            
-////            azimuth = -1.0
-////            elevation = -1.0
-////        }
-//        return azimuth;
-//    }
-//    
+//        let solarZen = zenith - refractionCorrection;
+//        var elevation:Double
+//        
+//        if(solarZen < 108.0) { // astronomical twilight
+//            
+//            azimuth = (floor(100*azimuth))/100;
+//            elevation = (floor(100*(90.0 - solarZen)))/100;
+//            
+//        } else {  // do not report az & el after astro twilight
+//            
+//            azimuth = -1.0
+//            elevation = -1.0
+//        }
+        return azimuth;
+    }
+    
     
 }
