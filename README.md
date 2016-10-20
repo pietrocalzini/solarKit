@@ -117,3 +117,4 @@ convert latitude and longitude from degrees to degrees-minutes-seconds
 ```swift
 toDegreesMinutesSeconds(coordinate: Double) ->[Double]
 ```
+Check out some info about the functions [here](http://www.esrl.noaa.gov/gmd/grad/solcalc/glossary.html)
