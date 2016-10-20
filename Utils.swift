@@ -29,7 +29,7 @@ import UIKit
 class Utils{
     
     /**
-     Function to calculate the time number code from a date
+     Function to calculate the time zone number code from a date
      
      - Parameter date: The date from which to extract the time zone.
      - Returns: Time zone number.
