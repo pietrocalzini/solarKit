@@ -58,7 +58,7 @@ class Utils{
     }
     
     /**
-     Function to convert radian angle to degree angle
+     Function to convert degree angle to radian angle
      
      - Parameter angleDeg: The angle in degrees.
      - Returns: The angle in radians.
