@@ -299,15 +299,6 @@ class SolarPosition{
         return Utils.radToDeg(Etime)*4.0;
     }
     
-    /**
-     
-     Function to calculate.
-     
-     - Parameter
-     - Returns:
-     
-     */
-    
     public func timenow(hour: Int, min: Int, sec: Int, zone: Int)->Double{
         let h = Double(hour)
         let m = Double(min/60)
@@ -316,15 +307,6 @@ class SolarPosition{
         let timenow = h + m + s + z
         return timenow
     }
-    
-    /**
-     
-     Function to calculate.
-     
-     - Parameter
-     - Returns:
-     
-     */
     
     private func solarTimeFix(long: Double, z: Int, eqTime: Double)->Double{
         let solarTimeFix = eqTime - 4.0 * long + 60.0 * Double(z);
@@ -352,15 +334,6 @@ class SolarPosition{
         }
         return trueSolarTime;
     }
-    
-    /**
-     
-     Function to calculate.
-     
-     - Parameter
-     - Returns:
-     
-     */
     
     private func hourAngle(trueSolarTime: Double)->Double{
         var hourAngle = trueSolarTime / 4.0 - 180.0;
