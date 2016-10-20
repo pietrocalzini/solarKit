@@ -101,7 +101,7 @@ Extract the time zone number from a time zone code
 ```swift
 localTimeZoneNumberForDate(date: Date)->Int
 ```
-Convert radian angle to degree angle
+Convert degree angle to radian angle
 ```swift
 degToRad(_ angleDeg:Double) ->Double
 ```
