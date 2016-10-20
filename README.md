@@ -1,2 +1,2 @@
 # solarKit
-A swift kit to work with astronomical coordinate
+A collection of swift classes to easily work with astronomical coordinates
