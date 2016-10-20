@@ -64,11 +64,11 @@ Calculate the declination of the sun.
 ```swift
 calcSunDeclination(_ t:Double) ->Double
 ```
-Calculate the difference between true solar time and mean solar time.swithc nintendo
+Calculate the difference between true solar time and mean solar time
 ```swift
 calcEquationOfTime(_ t:Double)->Double
 ```
-Calculate the true solar time.
+Calculate the true solar time
 ```swift
 trueSolarTime(solarTimeFix: Double, hour: Double, min: Double, sec: Double)->Double
 ```
