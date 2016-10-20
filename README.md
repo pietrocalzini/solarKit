@@ -1,7 +1,7 @@
 # solarKit
 ☀️🌎 Swift kit to work with astronomical calculations, coordinates and constants
 ## Usage
-Create a SolarPosition object
+
 ```swift
 let solarPosition:SolarPosition = SolarPosition();
 solarPosition.calcAzimuth(_ lat: 32.234, long: 12.234, sec:12, min: 12, hour: 2, z: 0, day: 1, 
