@@ -4,7 +4,7 @@
 
 ```swift
 let solarPosition:SolarPosition = SolarPosition();
-solarPosition.calcAzimuth(_ lat: 32.234, long: 12.234, sec:12, min: 12, hour: 2, z: 0, day: 1, 
+solarPosition.calcAzimuth(lat: 32.234, long: 12.234, sec:12, min: 12, hour: 2, z: 0, day: 1, 
 month: 3, year: 2016)
 ```
 ###Solar calculations
